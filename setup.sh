@@ -14,3 +14,9 @@ chmod 600 ~/.ssh/id_rsa
 
 echo 'chmod 644 ~/.ssh/id_rsa.pub'
 chmod 644 ~/.ssh/id_rsa.pub
+
+#
+# Enable display of Library folder
+#
+echo 'chflags nohidden ~/Library'
+chflags nohidden ~/Library

@@ -16,7 +16,7 @@ echo 'chmod 644 ~/.ssh/id_rsa.pub'
 chmod 644 ~/.ssh/id_rsa.pub
 
 #
-# Enable display of Library folder
+# Enable display of Library folder (necessary for Lion)
 #
 echo 'chflags nohidden ~/Library'
 chflags nohidden ~/Library

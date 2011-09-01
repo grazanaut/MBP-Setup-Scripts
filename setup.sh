@@ -1,40 +1,51 @@
+#!/bin/bash -v
+
 #
+# Notes
+# -v in the above shebang verbosely prints each command, so no need for echos
 #
 
 #
-# Set up chmod options for .ssh
+# Reusable Methods
 #
-echo 'Setting up permissions for .ssh folder and files'
 
-echo 'chmod 700 ~/.ssh'
+function quitIfErrcode() {
+  #first arg should be the error code, eg: quitIfErrcode $?
+  if [ $1 -gt 0 ]; then
+    # Double quotes below ensures that $1 is parsed correctly
+    echo "The previous command exited with code $1 . Aborting..." 
+    exit $1
+  fi
+}
+
+#
+# Set up chmod options/permissions for .ssh folder and files
+#
 chmod 700 ~/.ssh
-
-echo 'chmod 600 ~/.ssh/id_rsa'
 chmod 600 ~/.ssh/id_rsa
-
-echo 'chmod 644 ~/.ssh/id_rsa.pub'
 chmod 644 ~/.ssh/id_rsa.pub
 
 #
 # Enable display of Library folder (necessary for Lion)
 #
-echo 'chflags nohidden ~/Library'
 chflags nohidden ~/Library
 
-#
-# Install homebrew as user with sudo privileges
-#
-echo 'installing homebrew'
-echo 'please enter the name of a user with sudo privileges: '
-read SETUP_SH_SUDO_PRIV_USER
-su - $SETUP_SH_SUDO_PRIV_USER -c /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+##
+## Install homebrew as user with sudo privileges
+##
+SETUP_SH_HOMEBREW_INSTALLER_PATH=~/tmp.homebrew.curl.rb
 
-# Note - adding && to the end of any line will prevent the following line if it fails (as with most language command chains)
+# from here on, we use && to only proceed if the last command succeeded
+read -p 'Please enter the name of a user with sudo privileges: ' SETUP_SH_SUDO_PRIV_USER
 
-if [ $? -gt 0 ]; then
-  # Double quotes below ensures that $? is parsed correctly
-  echo "The previous command exited with code $? . Aborting..." 
-  exit $?
-fi
+curl -o $SETUP_SH_HOMEBREW_INSTALLER_PATH -fsSL https://raw.github.com/gist/323731 &&
+chmod 777 $SETUP_SH_HOMEBREW_INSTALLER_PATH &&
+su - $SETUP_SH_SUDO_PRIV_USER -c "$SETUP_SH_HOMEBREW_INSTALLER_PATH" &&
+rm $SETUP_SH_HOMEBREW_INSTALLER_PATH
 
+# exit if there was an error above
+quitIfErrcode $?
 
+##
+## FINISHED
+##

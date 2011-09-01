@@ -20,3 +20,21 @@ chmod 644 ~/.ssh/id_rsa.pub
 #
 echo 'chflags nohidden ~/Library'
 chflags nohidden ~/Library
+
+#
+# Install homebrew as user with sudo privileges
+#
+echo 'installing homebrew'
+echo 'please enter the name of a user with sudo privileges: '
+read SETUP_SH_SUDO_PRIV_USER
+su - $SETUP_SH_SUDO_PRIV_USER -c /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+
+# Note - adding && to the end of any line will prevent the following line if it fails (as with most language command chains)
+
+if [ $? -gt 0 ]; then
+  # Double quotes below ensures that $? is parsed correctly
+  echo "The previous command exited with code $? . Aborting..." 
+  exit $?
+fi
+
+

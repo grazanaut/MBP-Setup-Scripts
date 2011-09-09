@@ -36,6 +36,12 @@ chmod 644 ~/.ssh/id_rsa.pub
 #
 chflags nohidden ~/Library
 
+#
+# Pull down bashrc
+#
+curl -o ~/.bashrc -fsSL https://raw.github.com/grazanaut/BashEnvOSX/master/bashrc &&
+source ~/.bashrc
+
 ##
 ## Install the following as user with sudo and Administrator privileges
 ## - homebrew

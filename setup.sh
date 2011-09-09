@@ -1,4 +1,4 @@
-#!/bin/bash -v
+#!/bin/bash -xv
 
 #
 # Notes
@@ -6,17 +6,23 @@
 #
 
 #
-# Reusable Methods
+# Reusable Methods and values
 #
 
-function quitIfErrcode() {
-  #first arg should be the error code, eg: quitIfErrcode $?
+function errOutput() {
+  #first arg should be the error code, eg: errOutput $?
   if [ $1 -gt 0 ]; then
     # Double quotes below ensures that $1 is parsed correctly
-    echo "The previous command exited with code $1 . Aborting..." 
-    exit $1
+    echo "ERROR The previous command in setup.sh exited with code $1"
   fi
+  return $1
 }
+
+ SETUP_SH_USER=`whoami` &&
+#SETUP_SH_SUDO_PRIV_USER==>capture user now, but we will be warned each time privileges are elevated
+read -p 'Please enter the name of a user with sudo and Administrator privileges: ' SETUP_SH_SUDO_PRIV_USER  &&
+# exit if there was an error above
+true || errOutput $? || exit $? 
 
 #
 # Set up chmod options/permissions for .ssh folder and files
@@ -31,20 +37,20 @@ chmod 644 ~/.ssh/id_rsa.pub
 chflags nohidden ~/Library
 
 ##
-## Install homebrew as user with sudo privileges
+## Install the following as user with sudo and Administrator privileges
+## - homebrew
+## -- git-flow
 ##
-SETUP_SH_HOMEBREW_INSTALLER_PATH=~/tmp.homebrew.curl.rb
 
-# from here on, we use && to only proceed if the last command succeeded
-read -p 'Please enter the name of a user with sudo privileges: ' SETUP_SH_SUDO_PRIV_USER
-
-curl -o $SETUP_SH_HOMEBREW_INSTALLER_PATH -fsSL https://raw.github.com/gist/323731 &&
-chmod 777 $SETUP_SH_HOMEBREW_INSTALLER_PATH &&
-su - $SETUP_SH_SUDO_PRIV_USER -c "$SETUP_SH_HOMEBREW_INSTALLER_PATH" &&
-rm $SETUP_SH_HOMEBREW_INSTALLER_PATH
-
+cp ./setup_elevated.sh /tmp/ &&
+su - $SETUP_SH_SUDO_PRIV_USER -c "/tmp/setup_elevated.sh" &&
+rm /tmp/setup_elevated.sh &&
 # exit if there was an error above
-quitIfErrcode $?
+true || errOutput $? || exit $? 
+
+
+
+
 
 ##
 ## FINISHED

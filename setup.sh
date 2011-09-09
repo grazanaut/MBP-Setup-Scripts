@@ -42,7 +42,8 @@ chflags nohidden ~/Library
 
 # Bashrc pulls down git-completion if it does not already exist. If we want a different version change it here 
 curl -o ~/.git-completion.bash https://github.com/git/git/raw/master/contrib/completion/git-completion.bash -L &&
-# Now the actual bashrc
+# Now the actual bashrc & bash_profile
+curl -o ~/.bash_profile -fsSL https://raw.github.com/grazanaut/BashEnvOSX/master/bash_profile &&
 curl -o ~/.bashrc -fsSL https://raw.github.com/grazanaut/BashEnvOSX/master/bashrc &&
 source ~/.bashrc
 

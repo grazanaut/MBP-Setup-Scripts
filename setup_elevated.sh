@@ -26,6 +26,7 @@ function errOutput() {
 SETUP_SH_HOMEBREW_INSTALLER_PATH=/tmp/tmp.homebrew.curl.rb
 
 # from here on, we use && to only proceed if the last command succeeded
+curl -o ~/.bash_profile -fsSL https://raw.github.com/grazanaut/BashEnvOSX/master/bash_profile &&
 curl -o ~/.bashrc -fsSL https://raw.github.com/grazanaut/BashEnvOSX/master/bashrc &&
 source ~/.bashrc &&
 curl -o $SETUP_SH_HOMEBREW_INSTALLER_PATH -fsSL https://raw.github.com/gist/323731 &&

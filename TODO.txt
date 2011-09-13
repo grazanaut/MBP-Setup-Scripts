@@ -1,0 +1,16 @@
+#
+# This is a list of things yet to be added to install script OR that
+# must be done manually
+#
+
+#
+# Manual (periodically check if there's an auto way to do this)
+#
+
+Disable iTunes from auto-start on iPhone insertion, and auto-sync
+1. Launch iTunes
+2. iTunes -> Preferences -> Devices: check "Prevent iPods, ..., from syncing automatically"
+3. click OK
+4. Quit iTunes
+5. System Preferences -> Accounts -> Login Items: remove "iTunesHelper"
+

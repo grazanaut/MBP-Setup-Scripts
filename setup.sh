@@ -63,7 +63,8 @@ true || errOutput $? || exit $?
 ## Install Gilles Ruppert's VIMRC repository (forked to grazanaut)
 ##
 
-git clone --recursive git@github.com:grazanaut/vimrc.git ~/Documents/DevProjs/vimrc
+git clone --recursive git@github.com:grazanaut/vimrc.git ~/Documents/DevProjs/.vim
+cp ~/.vim/vimrc ~/.vimrc
 
 
 

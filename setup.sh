@@ -65,8 +65,9 @@ true || errOutput $? || exit $?
 
 git clone --recursive git@github.com:grazanaut/vimrc.git ~/Documents/DevProjs/.vim
 cp ~/.vim/vimrc ~/.vimrc
-
-
+# requires setting editor in gitconfig. RUN THIS ONLY ONCE!
+echo '[core]' >> ~/.gitconfig
+echo -e "\teditor = /usr/bin/vim" >> ~/.gitconfig
 
 ##
 ## FINISHED

@@ -70,5 +70,24 @@ echo '[core]' >> ~/.gitconfig
 echo -e "\teditor = /usr/bin/vim" >> ~/.gitconfig
 
 ##
+## Install RVM
+##
+
+bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+# exit if there was an error above
+errOutput $? || exit $? 
+echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bash_profile
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+##
+## Install Ruby 1.9.2 and bundler
+##
+
+rvm install 1.9.2
+rvm use ruby-1.9.2
+gem install rails thin bundler
+
+
+##
 ## FINISHED
 ##

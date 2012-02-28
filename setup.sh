@@ -71,6 +71,15 @@ echo '[core]' >> ~/.gitconfig
 echo -e "\teditor = /usr/bin/vim" >> ~/.gitconfig
 
 ##
+## Command-line launchers for GUI apps
+##
+
+cp ./p4merge /usr/local/bin/ &&
+cp ./p4diff /usr/local/bin/ &&
+# exit if there was an error above
+true || errOutput $? || exit $? 
+
+##
 ## Install RVM
 ##
 

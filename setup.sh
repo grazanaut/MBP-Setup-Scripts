@@ -64,7 +64,8 @@ true || errOutput $? || exit $?
 ##
 
 git clone --recursive git@github.com:grazanaut/vimrc.git ~/Documents/DevProjs/.vim
-cp ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/vimrc ~/.vimrc
+# TODO: move all this to dropbox for auto-syncing of VIMRC and BASHRC
 # requires setting editor in gitconfig. RUN THIS ONLY ONCE!
 echo '[core]' >> ~/.gitconfig
 echo -e "\teditor = /usr/bin/vim" >> ~/.gitconfig
